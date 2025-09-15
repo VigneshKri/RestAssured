@@ -6,6 +6,7 @@ import api.payload.User;
 import api.utils.TestDataUtil;
 import com.github.javafaker.Faker;
 import io.restassured.response.Response;
+import org.apache.http.HttpStatus;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -23,7 +24,8 @@ public class UserTest extends BaseTest {
     @Test()
     public void getUser() {
         User payLoad = TestDataUtil.getUserData();
-        UserEndPoints.createUser(payLoad);
+        Response createdUser = UserEndPoints.createUser(payLoad);
+        Assert.assertEquals(createdUser.getStatusCode(), HttpStatus.SC_OK);
         //Get User
         Response readResponse = UserEndPoints.readUser(payLoad.getUsername());
         Assert.assertEquals(readResponse.getStatusCode(), 200);
@@ -34,7 +36,8 @@ public class UserTest extends BaseTest {
         //Update user
         Faker faker = new Faker();
         User payLoad = TestDataUtil.getUserData();
-        UserEndPoints.createUser(payLoad);
+        Response createdUSer = UserEndPoints.createUser(payLoad);
+        Assert.assertEquals(createdUSer.getStatusCode(), 200);
 
         payLoad.setFirstName(faker.name().firstName());
         payLoad.setLastName(faker.name().lastName());
@@ -51,7 +54,8 @@ public class UserTest extends BaseTest {
     @Test()
     public void deleteUser() {
         User payLoad = TestDataUtil.getUserData();
-        UserEndPoints.createUser(payLoad);
+        Response createdUser = UserEndPoints.createUser(payLoad);
+        Assert.assertEquals(createdUser.getStatusCode(), 200);
         //Delete user
         Response deleteResponse = UserEndPoints.deleteUser(payLoad.getUsername());
         Assert.assertEquals(deleteResponse.getStatusCode(), 200);
