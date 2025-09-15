@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="PetSuite">
+
+    <test name="PetTests">
+        <classes>
+            <!-- <class name="api.test.UserTests"/> -->
+            <class name="api.test.UserTest"/>
+            <!-- <class name="api.test.DDTests"/>  -->
+        </classes>
+    </test> <!-- PetTests -->
+</suite> <!-- PetSuite -->
